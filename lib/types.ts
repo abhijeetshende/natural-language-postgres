@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type Unicorn = {
   id: number;
   company: string;
@@ -12,3 +14,8 @@ export type Unicorn = {
 export type Result = Record<string, string | number>;
 
 export type Config = any;
+export const explanationSchema = z.object({
+  section: z.string(),
+  explanation: z.string(),
+});
+export type QueryExplanation = z.infer<typeof explanationSchema>;

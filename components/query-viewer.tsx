@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { QueryWithTooltips } from "./ui/query-with-tooltips";
-import { QueryExplanation } from "@/lib/types";
+// import { QueryExplanation } from "@/lib/types";
 import { CircleHelp, Loader2 } from "lucide-react";
 
 export const QueryViewer = ({
@@ -14,8 +14,10 @@ export const QueryViewer = ({
   const activeQueryCutoff = 100;
 
   const [loadingExplanation, setLoadingExplanation] = useState(false);
-  const [queryExplanations, setQueryExplanations] = useState<QueryExplanation[] | null>();
-  const [queryExpanded, setQueryExpanded] = useState(activeQuery.length > activeQueryCutoff);
+  const [queryExplanations, setQueryExplanations] = useState<[] | null>();
+  const [queryExpanded, setQueryExpanded] = useState(
+    activeQuery.length > activeQueryCutoff
+  );
 
   const handleExplainQuery = async () => {
     setQueryExpanded(true);
@@ -31,7 +33,9 @@ export const QueryViewer = ({
   return (
     <div className="mb-4 relative group">
       <div
-        className={`bg-muted rounded-md p-4 ${queryExpanded ? "" : "text-muted-foreground"}`}
+        className={`bg-muted rounded-md p-4 ${
+          queryExpanded ? "" : "text-muted-foreground"
+        }`}
       >
         <div className="font-mono text-sm">
           {queryExpanded ? (
