@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { runGeneratedSQLQuery } from "./actions";
+import { getCompanies, generateQuery, generateChartConfig } from "./actions";
 
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Config, Result } from "@/lib/types";
-import { runGeneratedSQLQuery } from "./actions";
 
 import { Header } from "@/components/header";
 import { QueryViewer } from "@/components/query-viewer";
@@ -28,13 +29,11 @@ export default function Page() {
   const [columns, setColumns] = useState<string[]>([]);
   const [chartConfig, setChartConfig] = useState<Config | null>(null);
 
-
   const handleSubmit = async (suggestion?: string) => {
     clearExistingData();
 
     const question = suggestion ?? inputValue;
     if (inputValue.length === 0 && !suggestion) return;
-
 
     if (question.trim()) {
       setSubmitted(true);
@@ -45,7 +44,7 @@ export default function Page() {
     setActiveQuery("");
 
     try {
-      const query = "TODO - IMPLEMENT ABOVE"; // placeholder value
+      const query = await generateQuery(question);
 
       if (query === undefined) {
         toast.error("An error occurred. Please try again.");
@@ -62,6 +61,9 @@ export default function Page() {
       setColumns(columns);
 
       setLoading(false);
+
+      const { config } = await generateChartConfig(companies, question);
+      setChartConfig(config);
     } catch (e) {
       toast.error("An error occurred. Please try again.");
       setLoading(false);
