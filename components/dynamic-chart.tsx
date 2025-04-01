@@ -97,7 +97,7 @@ export function DynamicChart({
             </YAxis>
             <ChartTooltip content={<ChartTooltipContent />} />
             {chartConfig.legend && <Legend />}
-            {chartConfig.yKeys.map((key, index) => (
+            {chartConfig.yKeys.map((key: string, index: number) => (
               <Bar
                 key={key}
                 dataKey={key}
