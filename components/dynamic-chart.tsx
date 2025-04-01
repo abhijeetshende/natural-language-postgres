@@ -109,7 +109,7 @@ export function DynamicChart({
       case "line":
         const { data, xAxisField, lineFields } = transformDataForMultiLineChart(
           chartData,
-          chartConfig,
+          chartConfig
         );
         const useTransformedData =
           chartConfig.multipleLines &&
@@ -125,7 +125,7 @@ export function DynamicChart({
             >
               <Label
                 value={toTitleCase(
-                  useTransformedData ? xAxisField : chartConfig.xKey,
+                  useTransformedData ? xAxisField : chartConfig.xKey
                 )}
                 offset={0}
                 position="insideBottom"
@@ -141,7 +141,7 @@ export function DynamicChart({
             <ChartTooltip content={<ChartTooltipContent />} />
             {chartConfig.legend && <Legend />}
             {useTransformedData
-              ? lineFields.map((key, index) => (
+              ? lineFields.map((key: string, index: number) => (
                   <Line
                     key={key}
                     type="monotone"
@@ -149,7 +149,7 @@ export function DynamicChart({
                     stroke={colors[index % colors.length]}
                   />
                 ))
-              : chartConfig.yKeys.map((key, index) => (
+              : chartConfig.yKeys.map((key: string, index: number) => (
                   <Line
                     key={key}
                     type="monotone"
@@ -167,7 +167,7 @@ export function DynamicChart({
             <YAxis />
             <ChartTooltip content={<ChartTooltipContent />} />
             {chartConfig.legend && <Legend />}
-            {chartConfig.yKeys.map((key, index) => (
+            {chartConfig.yKeys.map((key: string, index: number) => (
               <Area
                 key={key}
                 type="monotone"
@@ -211,14 +211,14 @@ export function DynamicChart({
       {chartConfig && chartData.length > 0 && (
         <ChartContainer
           config={chartConfig.yKeys.reduce(
-            (acc, key, index) => {
+            (acc: any, key: string, index: number) => {
               acc[key] = {
                 label: key,
                 color: colors[index % colors.length],
               };
               return acc;
             },
-            {} as Record<string, { label: string; color: string }>,
+            {} as Record<string, { label: string; color: string }>
           )}
           className="h-[320px] w-full"
         >
